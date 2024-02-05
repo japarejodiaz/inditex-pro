@@ -21,16 +21,16 @@ public class ProductSpecification {
         List<Predicate> predicates = new ArrayList<>();
 
         return (root, query, criteriaBuilder) -> {
-            query.distinct(true);
+
             log.info("pase por spe");
             Join<ProductEntity, SizeEntity> sizeJoin = root.join("sizeEntities", JoinType.INNER);
             log.info("pase por spe2");
             Join<ProductEntity, OfferEntity> offerJoin = root.join("offerEntities", JoinType.INNER);
             log.info("pase por spe3");
 
-            query.select(criteriaBuilder.construct(ProductEntity.class, root.get("id"), root.get("name"), offerJoin.get("validFrom")));
+            //query.select(criteriaBuilder.construct(ProductEntity.class, root.get("id"), root.get("name"), offerJoin.get("validFrom")));
 
-            query.select(criteriaBuilder.construct(ProductEntity.class, root.get("id"), root.get("name"), offerJoin.get("validFrom")));
+            //query.select(criteriaBuilder.construct(ProductEntity.class, root.get("id"), root.get("name"), offerJoin.get("validFrom")));
 
 
 

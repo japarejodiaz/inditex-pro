@@ -1,19 +1,17 @@
 package com.inditex.zarachallenge.domain.service;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inditex.zarachallenge.application.service.ProductService;
 import com.inditex.zarachallenge.domain.model.ProductEntity;
-import com.inditex.zarachallenge.domain.repository.OfferRepository;
-import com.inditex.zarachallenge.domain.repository.ProductDomainRepository;
-import com.inditex.zarachallenge.domain.repository.SizeRepository;
-import com.inditex.zarachallenge.application.mapper.ProductMapper;
+import com.inditex.zarachallenge.domain.repository.ProductRepository;
 import com.inditex.zarachallenge.domain.specification.ProductSpecification;
+import com.inditex.zarachallenge.infrastructure.external.service.ProductExtService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,62 +20,41 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private ProductDomainRepository productDomainRepository;
+    private ProductRepository productRepository;
 
     @Autowired
-    private OfferRepository offerRepository;
+    private ProductExtService productExtService;
 
     @Autowired
-    private SizeRepository sizeRepository;
-
-    @Autowired
-    private ProductMapper productMapper;
-
-
+    private ObjectMapper objectMapper;
 
     @Override
     public List<ProductEntity> findSimilarProducts(Integer productId) throws Exception {
-
-
-
-        //*** llamar al servicio de lista de similares
-        log.info("pase por 2");
-        List<Integer> listprod = Arrays.asList(2, 3, 4);
-        // validar que el producto exista
-        // llamar y crear la especificacion
-        log.info("pase por 3");
+        String ids = getSimilarIds(productId);
+        List<Integer> listprod = objectMapper.readValue(ids, List.class);
         Specification<ProductEntity> spec = ProductSpecification.validOffersProjection(listprod);
-        log.info("pase por 4");
         try {
-            List<ProductEntity> productDetailList = productDomainRepository.findAll(spec);
-
-
-
-            for (ProductEntity listProd: productDetailList) {
-                log.info("listProd.get" + listProd.getId());
-                log.info("listProd.getname" + listProd.getName());
-                log.info("listProd.otros Offer" + listProd.getOfferEntities().get(0).getId());
-                log.info("listProd.otros Offer" + listProd.getOfferEntities().get(0).getValidFrom());
-                log.info("listProd.otros Offer" + listProd.getSizeEntities().get(0).isAvailability());
-
-            };
-
-
-            List<ProductEntity> distinctObjects = productDetailList.stream()
-                    .collect(Collectors.toMap(ProductEntity::getId, obj -> obj, (existing, replacement) -> existing))
-                    .values()
-                    .stream()
-                    .collect(Collectors.toList());
-/*
-            distinctObjects.forEach(System.out::println);*/
-            return distinctObjects;
+            return productRepository.findAll(spec);
         } catch (Exception e) {
             throw new Exception(e.getMessage().toString());
         }
-
-
+    }
+    private List<ProductEntity> getProducts(List<ProductEntity> productList) {
+        return productList.stream()
+                .map(productEntity -> {
+                    return new ProductEntity(
+                            productEntity.getId(),
+                            productEntity.getName(),
+                            productEntity.getOfferEntities().stream().limit(1).collect(Collectors.toList()),
+                            productEntity.getSizeEntities()
+                    );
+                })
+                .collect(Collectors.toList());
     }
 
-
+    public String getSimilarIds(Integer productId) {
+        return productExtService.getSimilarIds(productId).defaultIfEmpty("")
+                .block();
+    }
 
 }

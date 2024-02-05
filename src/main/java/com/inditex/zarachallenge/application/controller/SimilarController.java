@@ -30,36 +30,17 @@ public class SimilarController {
 
     @GetMapping("/{productId}/similar")
     public ResponseEntity<ProductDetailResponse> getSimilarProducts(@PathVariable("productId") Integer productId) {
-        // Aquí llamarías a tu servicio para obtener productos similares basados en el productId
-        log.info("pase por aqui");
-
-
         try {
             ProductDetailResponse productDetailResponse;
-
             List<ProductEntity> similarProducts = productService.findSimilarProducts(productId);
-
-            for (ProductEntity listProd: similarProducts) {
-                log.info("listProd.get" + listProd.getId());
-                log.info("listProd.getname" + listProd.getName());
-
-
-            };
-
-            log.info("entre a mapear");
-
             if (similarProducts.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            log.info("entre a mapear2");
             productDetailResponse = productMapper.mapProductEntitiesToProductDetailResponse(similarProducts);
             return new ResponseEntity<>(productDetailResponse, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 }
