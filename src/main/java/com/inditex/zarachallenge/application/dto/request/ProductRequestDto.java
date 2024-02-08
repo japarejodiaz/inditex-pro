@@ -7,6 +7,6 @@ import lombok.Data;
 @Builder
 public class ProductRequestDto {
 
-    private int id;
+    private Long id;
     private String name;
 }

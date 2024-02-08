@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class SizeRequestDto {
-    private int sizeId;
+    private Long sizeId;
     private String size;
     private boolean availability;
     private LocalDateTime lastUpdated;
-    private int productId;
+    private Long productId;
 }

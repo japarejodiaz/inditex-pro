@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 public class OfferRequestDto implements Serializable {
 
-    private int id;
+    private Long id;
     private LocalDateTime validFrom;
     private BigDecimal price;
     private int productId;

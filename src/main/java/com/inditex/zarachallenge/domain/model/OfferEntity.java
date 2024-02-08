@@ -20,7 +20,7 @@ public class OfferEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Long id;
 
     @Column(name = "VALID_FROM")
     private LocalDateTime validFrom;
