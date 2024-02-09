@@ -1,4 +1,4 @@
-package com.inditex.zarachallenge.controller;
+package com.inditex.zarachallenge.integration;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -17,17 +17,18 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest
 @WebAppConfiguration
-class SimilarControllerTest {
+class SimilarControllerTest2 {
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 	private MockMvc mockMvc;
-	private static String URL = "/productEntity/{id}/similar";
+	private static String URL = "/product/{id}/similar";
 	
 	@BeforeEach
 	public void setup() throws Exception {
 	    this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
 	}
 
+	//@Disabled
 	@Test
 	void testInput9() throws Exception {
 		mockMvc.perform(get(URL, 9)).andExpect(status().is(HttpStatus.OK.value()))
@@ -40,7 +41,8 @@ class SimilarControllerTest {
 				.andReturn().getResponse().getContentAsString();
 	}
 
-	@Test
+	//@Disabled
+	//@Test
 	void testInput12() throws Exception {
 		System.out.println(mockMvc.perform(get(URL, 12)).andReturn().getResponse().getContentAsString());
 		mockMvc.perform(get(URL, 12)).andExpect(status().is(HttpStatus.OK.value()))

@@ -1,5 +1,9 @@
 package com.inditex.zarachallenge.infrastructure.config;
 
+import com.inditex.zarachallenge.domain.model.ProductAvailabilityEvent;
+import com.inditex.zarachallenge.infrastructure.KafkaListener;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.model.Header;
 import org.mockserver.model.HttpRequest;
@@ -16,12 +20,6 @@ import org.springframework.messaging.support.GenericMessage;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.inditex.zarachallenge.domain.model.ProductAvailabilityEvent;
-import com.inditex.zarachallenge.infrastructure.KafkaListener;
-
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-
 import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -35,7 +33,7 @@ import java.util.function.Consumer;
 @EnableWebMvc
 public class ZaraInitialConfig implements CommandLineRunner {
     @Autowired
-    KafkaListener kafka;
+	KafkaListener kafka;
 
     @Value("classpath:events.csv")
     Resource resourceFile;

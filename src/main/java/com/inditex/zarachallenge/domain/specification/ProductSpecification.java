@@ -22,27 +22,16 @@ public class ProductSpecification {
 
         return (root, query, criteriaBuilder) -> {
 
-            log.info("pase por spe");
             Join<ProductEntity, SizeEntity> sizeJoin = root.join("sizeEntities", JoinType.INNER);
-            log.info("pase por spe2");
             Join<ProductEntity, OfferEntity> offerJoin = root.join("offerEntities", JoinType.INNER);
-            log.info("pase por spe3");
-
-            //query.select(criteriaBuilder.construct(ProductEntity.class, root.get("id"), root.get("name"), offerJoin.get("validFrom")));
-
-            //query.select(criteriaBuilder.construct(ProductEntity.class, root.get("id"), root.get("name"), offerJoin.get("validFrom")));
-
-
-
             predicates.add(criteriaBuilder.lessThanOrEqualTo(offerJoin.get("validFrom"), LocalDateTime.now()));
             predicates.add(criteriaBuilder.equal(root.get("id"), sizeJoin.get("productEntity").get("id")));
             predicates.add(criteriaBuilder.equal(root.get("id"), offerJoin.get("productEntity").get("id")));
             predicates.add(root.get("id").in(productIds));
 
-
-
+            query.multiselect(root.get("id"), root.get("name"), offerJoin.get("validFrom"));
             query.orderBy(criteriaBuilder.desc(root.get("id")), criteriaBuilder.desc(root.get("offerEntities").get("validFrom")));
-            log.info("pase por spe2");
+
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }

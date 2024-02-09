@@ -1,7 +1,10 @@
-package com.inditex.zarachallenge.infrastructure.exceptions;
+package com.inditex.zarachallenge.application.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.inditex.zarachallenge.infrastructure.constant.ErrorEnum;
 import com.inditex.zarachallenge.application.dto.response.ErrorResponse;
+import com.inditex.zarachallenge.infrastructure.exceptions.ProductNotFoundException;
+import com.inditex.zarachallenge.infrastructure.exceptions.ProductSimilarNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -59,6 +62,27 @@ public class ProductHandlerException {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
+
+        String message = messageSource.getMessage(ErrorEnum.GENERIC_ERROR.getMessage(), null, Locale.getDefault());
+        ErrorResponse response = new ErrorResponse(message, HttpStatus.INTERNAL_SERVER_ERROR.value());
+
+        log.debug("[ERROR]: {}",ex.getMessage());
+
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ProductSimilarNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePricesSimilarNotFoundException(ProductSimilarNotFoundException ex) {
+
+        ErrorResponse response = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+
+        log.debug("[ERROR]: {}",ex.getMessage());
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(JsonProcessingException.class)
+    public ResponseEntity<ErrorResponse> handleJsonException(JsonProcessingException ex) {
 
         String message = messageSource.getMessage(ErrorEnum.GENERIC_ERROR.getMessage(), null, Locale.getDefault());
         ErrorResponse response = new ErrorResponse(message, HttpStatus.INTERNAL_SERVER_ERROR.value());
