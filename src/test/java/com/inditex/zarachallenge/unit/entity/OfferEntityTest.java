@@ -27,8 +27,8 @@ public class OfferEntityTest {
                 .build();
 
         assertThat(offerEntity.getId()).isEqualTo(1L);
-        assertThat(offerEntity.getValidFrom()).isNotNull(); // Verificar que la fecha no sea nula
+        assertThat(offerEntity.getValidFrom()).isNotNull();
         assertThat(offerEntity.getPrice()).isEqualTo(BigDecimal.valueOf(20.99));
-        assertThat(offerEntity.getProductEntity()).isEqualTo(productEntity); // Verificar que el producto sea el mismo objeto simulado
+        assertThat(offerEntity.getProductEntity()).isEqualTo(productEntity);
     }
 }

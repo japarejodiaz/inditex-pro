@@ -1,12 +1,12 @@
 package com.inditex.zarachallenge.unit.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inditex.zarachallenge.domain.model.ProductEntity;
 import com.inditex.zarachallenge.domain.repository.ProductRepository;
 import com.inditex.zarachallenge.domain.service.ProductServiceImpl;
+import com.inditex.zarachallenge.domain.util.UtilMessage;
 import com.inditex.zarachallenge.infrastructure.external.service.ProductExtService;
-import com.inditex.zarachallenge.infrastructure.util.UtilMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -45,8 +45,8 @@ public class ProductServiceImplTest {
 
     @Test
     public void testFindSimilarProducts_ProductFound_ReturnsSimilarProducts() throws Exception {
-        // Datos de prueba
-        Integer productId = 1;
+
+        Long productId = 1L;
         List<ProductEntity> productList = new ArrayList<>();
         ProductEntity productEntity = new ProductEntity();
         productList.add(productEntity);

@@ -1,7 +1,5 @@
 package com.inditex.zarachallenge.application.controller;
 
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.inditex.zarachallenge.application.dto.response.ProductDetailResponse;
 import com.inditex.zarachallenge.application.mapper.ProductMapper;
 import com.inditex.zarachallenge.application.service.ProductService;
@@ -39,7 +37,7 @@ public class SimilarController {
     @ApiOperation(value = "Get a Similar Products for one identifier Product", httpMethod = "GET", notes = "Get a Similar Products a identifier Product",
             response = String.class)
     @Operation(summary = "Get a similars product for one identifier product", method = "GET")
-    public ResponseEntity<ProductDetailResponse> getSimilarProducts(@PathVariable("productId") Integer productId) throws Exception {
+    public ResponseEntity<ProductDetailResponse> getSimilarProducts(@PathVariable("productId") Long productId) throws Exception {
 
             ProductDetailResponse productDetailResponse;
             List<ProductEntity> similarProducts = productService.findSimilarProducts(productId);

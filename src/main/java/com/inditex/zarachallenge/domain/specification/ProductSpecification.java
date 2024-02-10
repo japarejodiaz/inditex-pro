@@ -16,7 +16,7 @@ public class ProductSpecification {
 
     private ProductSpecification() {}
 
-    public static Specification<ProductEntity> validOffersProjection(List<Integer> productIds) {
+    public static Specification<ProductEntity> validOffersProjection(List<Long> productIds) {
 
         List<Predicate> predicates = new ArrayList<>();
 
@@ -29,7 +29,6 @@ public class ProductSpecification {
             predicates.add(criteriaBuilder.equal(root.get("id"), offerJoin.get("productEntity").get("id")));
             predicates.add(root.get("id").in(productIds));
 
-            query.multiselect(root.get("id"), root.get("name"), offerJoin.get("validFrom"));
             query.orderBy(criteriaBuilder.desc(root.get("id")), criteriaBuilder.desc(root.get("offerEntities").get("validFrom")));
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

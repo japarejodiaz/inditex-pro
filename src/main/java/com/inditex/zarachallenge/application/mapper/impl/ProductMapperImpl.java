@@ -1,5 +1,4 @@
 package com.inditex.zarachallenge.application.mapper.impl;
-
 import com.inditex.zarachallenge.application.dto.response.ProductDetailResponse;
 import com.inditex.zarachallenge.application.dto.response.ProductResponseDto;
 import com.inditex.zarachallenge.application.mapper.ProductMapper;

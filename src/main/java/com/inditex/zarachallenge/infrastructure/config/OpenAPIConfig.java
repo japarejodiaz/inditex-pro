@@ -5,6 +5,7 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,13 +14,13 @@ import java.util.List;
 @Configuration
 public class OpenAPIConfig {
 
-  private static final String DEVURL = "http://localhost:8080";
-
+  @Value("${openapi.dev-url}")
+  private String openAPIUrl;
 
   @Bean
   public OpenAPI myOpenAPI() {
     Server devServer = new Server();
-    devServer.setUrl(DEVURL);
+    devServer.setUrl(openAPIUrl);
     devServer.setDescription("Server URL in Development environment for Test for Inditex");
 
     Contact contact = new Contact();

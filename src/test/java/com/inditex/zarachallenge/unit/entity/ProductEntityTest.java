@@ -15,7 +15,7 @@ public class ProductEntityTest {
 
     @Test
     public void testProductEntity() {
-        // Crear una instancia de ProductEntity
+
         ProductEntity productEntity = ProductEntity.builder()
                 .id(1L)
                 .name("Product 1")
@@ -26,28 +26,9 @@ public class ProductEntityTest {
 
         assertThat(productEntity.getId()).isEqualTo(1L);
         assertThat(productEntity.getName()).isEqualTo("Product 1");
-        assertThat(productEntity.getOfferEntities()).isEmpty(); // Lista vacia
-        assertThat(productEntity.getSizeEntities()).isEmpty();  // Lista Vacia
+        assertThat(productEntity.getOfferEntities()).isEmpty();
+        assertThat(productEntity.getSizeEntities()).isEmpty();
+
+
     }
-
-    @Test
-    public void testProductEntityAttributes() {
-
-        List<OfferEntity> offerEntities = new ArrayList<>();
-        List<SizeEntity> sizeEntities = new ArrayList<>();
-
-        ProductEntity productEntity = ProductEntity.builder()
-                .id(1L)
-                .name("Product 1")
-                .offerEntities(offerEntities)
-                .sizeEntities(sizeEntities)
-                .build();
-
-        assertThat(productEntity.getId()).isEqualTo(1L);
-        assertThat(productEntity.getName()).isEqualTo("Product 1");
-        assertThat(productEntity.getOfferEntities()).isEqualTo(offerEntities);
-        assertThat(productEntity.getSizeEntities()).isEqualTo(sizeEntities);
-    }
-
-
 }

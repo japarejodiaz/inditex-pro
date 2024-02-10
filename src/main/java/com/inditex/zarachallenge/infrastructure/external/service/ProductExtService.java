@@ -11,24 +11,19 @@ import reactor.core.publisher.Mono;
 @Service
 public class ProductExtService {
 
-    @Value("${base.url.url}")
-    private String urlBase;
-
-    @Value("${base.url.path}")
-    private String urlPath;
-
     private WebClient webClient;
 
-    public ProductExtService(WebClient.Builder webClientBuilder) {
+    @Value("${base.url}")
+    private String baseUrl;
 
-        this.webClient = webClientBuilder.build();
-    }
+    @Value("${base.path}")
+    private String basePath;
 
-    public Mono<String> getSimilarIds(Integer productId) {
+    public Mono<String> getSimilarIds(Long productId) {
 
-        this.webClient = WebClient.builder().baseUrl(urlBase).build();
+        this.webClient = WebClient.builder().baseUrl(baseUrl).build();
 
-        String url = UriComponentsBuilder.fromPath(urlPath)
+        String url = UriComponentsBuilder.fromPath(basePath)
                 .buildAndExpand(productId)
                 .toUriString();
 

@@ -1,4 +1,4 @@
-package com.inditex.zarachallenge.infrastructure.util;
+package com.inditex.zarachallenge.domain.util;
 
 import com.inditex.zarachallenge.infrastructure.constant.ErrorEnum;
 import com.inditex.zarachallenge.infrastructure.exceptions.ProductNotFoundException;

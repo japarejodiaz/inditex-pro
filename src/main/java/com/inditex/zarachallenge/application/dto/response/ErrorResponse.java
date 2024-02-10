@@ -1,7 +1,6 @@
 package com.inditex.zarachallenge.application.dto.response;
 
 import lombok.*;
-
 import java.io.Serializable;
 
 @Data

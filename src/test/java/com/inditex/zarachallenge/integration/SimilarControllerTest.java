@@ -36,30 +36,26 @@ public class SimilarControllerTest {
 
     @Test
     void getSimilarProducts_ProductsFound_Returns200() throws Exception {
-        // Arrange
-        int productId = 1;
+
+        Long productId = 1L;
         List<ProductEntity> productList = new ArrayList<>();
         productList.add(new ProductEntity());
         when(productService.findSimilarProducts(productId)).thenReturn(productList);
 
-        // Act
         ResponseEntity<ProductDetailResponse> responseEntity = similarController.getSimilarProducts(productId);
 
-        // Assert
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         verify(productService, times(1)).findSimilarProducts(productId);
     }
 
     @Test
     void getSimilarProducts_ProductsNotFound_Returns404() throws Exception {
-        // Arrange
-        int productId = 1;
+
+        Long productId = 1L;
         when(productService.findSimilarProducts(productId)).thenReturn(new ArrayList<>());
 
-        // Act
         ResponseEntity<ProductDetailResponse> responseEntity = similarController.getSimilarProducts(productId);
 
-        // Assert
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
         verify(productService, times(1)).findSimilarProducts(productId);
     }
