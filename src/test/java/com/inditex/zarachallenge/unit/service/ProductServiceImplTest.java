@@ -4,21 +4,17 @@ package com.inditex.zarachallenge.unit.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inditex.zarachallenge.domain.model.ProductEntity;
 import com.inditex.zarachallenge.domain.repository.ProductRepository;
-import com.inditex.zarachallenge.domain.service.ProductServiceImpl;
-import com.inditex.zarachallenge.domain.util.UtilMessage;
 import com.inditex.zarachallenge.infrastructure.external.service.ProductExtService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import static org.assertj.core.api.Assertions.*;
+
 import static org.mockito.Mockito.*;
 
 public class ProductServiceImplTest {
@@ -31,12 +27,6 @@ public class ProductServiceImplTest {
 
     @Mock
     private ObjectMapper objectMapper;
-
-    @Mock
-    private UtilMessage utilMessage;
-
-    @InjectMocks
-    private ProductServiceImpl productService;
 
     @BeforeEach
     public void setUp() {

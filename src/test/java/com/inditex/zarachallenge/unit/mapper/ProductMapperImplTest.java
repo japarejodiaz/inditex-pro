@@ -1,7 +1,6 @@
 package com.inditex.zarachallenge.unit.mapper;
 
 import com.inditex.zarachallenge.application.dto.response.ProductDetailResponse;
-import com.inditex.zarachallenge.application.dto.response.ProductDetailResponse;
 import com.inditex.zarachallenge.application.dto.response.ProductResponseDto;
 import com.inditex.zarachallenge.application.mapper.impl.ProductMapperImpl;
 import com.inditex.zarachallenge.domain.model.OfferEntity;

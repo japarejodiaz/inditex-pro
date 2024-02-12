@@ -16,12 +16,6 @@ public class UtilMessage {
     @Autowired
     private MessageSource messageSource;
 
-    public void getProductNotFoundException(String productId, String consultationDate) {
-        String message = messageSource.getMessage(ErrorEnum.NOT_PRODUCT_NOTFOUND.getMessage(), null, Locale.getDefault());
-        String formattedMessage = MessageFormat.format(message, productId, consultationDate);
-        throw new ProductNotFoundException(formattedMessage);
-    }
-
     public void getProductsSimilarNotFoundException(String productId, String consultationDate) {
         String message = messageSource.getMessage(ErrorEnum.NOT_PRODUCTS_SIMILAR_NOTFOUND.getMessage(), null, Locale.getDefault());
         String formattedMessage = MessageFormat.format(message, productId, consultationDate);
